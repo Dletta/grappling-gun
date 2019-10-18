@@ -1,0 +1,29 @@
+{
+  "name": "grappling-gun",
+  "version": "0.1.0",
+  "description": "Bridge for Chat, with GUN Backend for Chat backup and viewing",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dletta/grappling-gun.git"
+  },
+  "keywords": [
+    "chat",
+    "graph",
+    "GUN",
+    "bridge"
+  ],
+  "author": "Dletta, Trosel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dletta/grappling-gun/issues"
+  },
+  "homepage": "https://github.com/Dletta/grappling-gun#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "node-gitter": "^2.1.0"
+  }
+}
