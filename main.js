@@ -9,8 +9,10 @@ var Discord = require('discord.js');
 var _room;
 var _channel;
 
-var gitterToken = process.env.GITTER_TOKEN;
-var discordToken = process.env.DISCORD_TOKEN;
+var gitterToken = process.env.GITTER_TOKEN || process.argv[2];
+var discordToken = process.env.DISCORD_TOKEN || process.argv[3];
+
+console.log('started')
 
 /* ---- GITTER ----- */
 /* Log into gitter */
@@ -30,14 +32,14 @@ gitter.rooms.join('amark/gun')
 
   // The 'chatMessages' event is emitted on each new message
   events.on('chatMessages', function(message) {
-    console.log(message.model.fromUser);
-    if(message.operation == "create" && message.model.fromUser.username != 'gunBot-disc'){
+    console.log(message.model.fromUser.username);
+    if(message.operation == "create" && message.model.fromUser.username != 'dletta'){
       //post initial message
       try{
         _channel.send(`[GITTER] -- ${message.model.fromUser.username} -- ${message.model.text}`)
       } catch(e) {console.log(e)}
 
-    } else if (message.operation == "update") {
+    } else if (message.operation == "update" && message.model.fromUser.username != 'dletta') {
       //post a message that indicates an update
       try{
         _channel.send(`[GITTER] -- ${message.model.fromUser.username} -Update- ${message.model.text}`)
@@ -68,8 +70,9 @@ client.on('ready', () => {
 client.on('message', message => {
 
   console.log(message.content);
-
-  _room.send(`[DISCORD] -- ${message.author.username} -- ${message.content}`);
+  if(message.author.username != 'gunDiscordionBridge'){
+    _room.send(`[DISCORD] -- ${message.author.username} -- ${message.content}`);
+  }
 
   // If the message is "ping"
   if (message.content === 'ping') {
