@@ -9,10 +9,13 @@ var Discord = require('discord.js');
 var _room;
 var _channel;
 
+var gitterToken = process.env.GITTER_TOKEN;
+var discordToken = process.env.DISCORD_TOKEN;
+
 /* ---- GITTER ----- */
 /* Log into gitter */
 
-const gitter = new Gitter("token");
+const gitter = new Gitter(gitterToken);
 
 console.log(gitter.client);
 
@@ -78,4 +81,4 @@ client.on('message', message => {
 });
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login("discordtoken");
+client.login(discordToken);
