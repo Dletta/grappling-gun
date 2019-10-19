@@ -4,6 +4,7 @@
   "description": "Bridge for Chat, with GUN Backend for Chat backup and viewing",
   "main": "main.js",
   "scripts": {
+    "start": "node main.js"
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
