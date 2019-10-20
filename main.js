@@ -26,25 +26,24 @@ gitter.rooms.join('amark/gun')
   console.log('Joined room: ', room.name);
   // get the room into global for use in discord
   _room = room;
-  room.send('Bridge started.')
   // fetch an observer for the global room
   var events = _room.streaming().chatMessages();
 
   // The 'chatMessages' event is emitted on each new message
   events.on('chatMessages', function(message) {
-    console.log(message.model.fromUser.username);
+    //console.log(message.model.fromUser);
     if(message.operation == "create" && message.model.fromUser.username != 'Dletta'){
       //post initial message
       try{
-        console.log('sending',message.model.fromUser.username )
-        //_channel.send(`[GITTER] -- ${message.model.fromUser.username} -- ${message.model.text}`)
+        //console.log('sending',message.model.fromUser.username )
+        _channel.send(`[GITTER] -- ${message.model.fromUser.username} -- ${message.model.text}`)
       } catch(e) {console.log(e)}
 
     } else if (message.operation == "update" && message.model.fromUser.username != 'Dletta') {
       //post a message that indicates an update
       try{
-        console.log('sending',message.model.fromUser.username )
-        //_channel.send(`[GITTER] -- ${message.model.fromUser.username} -Update- ${message.model.text}`)
+        //console.log('sending',message.model.fromUser.username )
+        _channel.send(`[GITTER] -- ${message.model.fromUser.username} -Update- ${message.model.text}`)
       } catch(e) {console.log(e)}
     }
   });
@@ -73,8 +72,8 @@ client.on('message', message => {
 
   console.log(message.author.username);
   if(message.author.username != 'gunDiscordionBridge'){
-    console.log('sending', message.author.username )
-    //_room.send(`[DISCORD] -- ${message.author.username} -- ${message.content}`);
+    //console.log('sending', message.author.username )
+    _room.send(`[DISCORD] -- ${message.author.username} -- ${message.content}`);
   }
 
   // If the message is "ping"
