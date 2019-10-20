@@ -1,6 +1,10 @@
 
 /* Imports */
-var server = require('http').createServer().listen(process.env.PORT || 80);
+var server = require('http').createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.write('This is the discord bridge');
+  res.end();
+}).listen(process.env.PORT || 80);
 var Gitter = require('node-gitter');
 var Discord = require('discord.js');
 
@@ -70,19 +74,22 @@ client.on('ready', () => {
 // Create an event listener for messages
 client.on('message', message => {
 
-  console.log(message.author.username);
-  if(message.author.username != 'gunDiscordionBridge'){
-    //console.log('sending', message.author.username )
-    _room.send(`[DISCORD] -- ${message.author.username} -- ${message.content}`);
-  }
+  console.log('channel', message.channel);
+  if(message.channel.id == "612645357850984473"){
+    //console.log(message.author.username);
+    if(message.author.username != 'gunDiscordionBridge'){
+      //console.log('sending', message.author.username )
+      _room.send(`[DISCORD] -- ${message.author.username} -- ${message.content}`);
+    }
 
-  // If the message is "ping"
-  if (message.content === 'ping') {
-    // Send "pong" to the same channel
-    message.channel.send('pong');
-  }
+    // If the message is "ping"
+    if (message.content === 'ping') {
+      // Send "pong" to the same channel
+      message.channel.send('pong');
+    }
 
-  _channel = message.channel;
+    _channel = message.channel;
+  }
 });
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
