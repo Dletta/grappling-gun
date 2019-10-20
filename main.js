@@ -1,6 +1,6 @@
 
 /* Imports */
-
+var server = require('http').createServer().listen(8080);
 var Gitter = require('node-gitter');
 var Discord = require('discord.js');
 
