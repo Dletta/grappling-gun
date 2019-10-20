@@ -1,6 +1,6 @@
 
 /* Imports */
-var server = require('http').createServer().listen(8080);
+var server = require('http').createServer().listen(process.env.PORT || 80);
 var Gitter = require('node-gitter');
 var Discord = require('discord.js');
 
