@@ -40,14 +40,14 @@ gitter.rooms.join('amark/gun')
       //post initial message
       try{
         //console.log('sending',message.model.fromUser.username )
-        _channel.send(`[GITTER] -- ${message.model.fromUser.username} -- ${message.model.text}`)
+        _channel.send(`gitter~${message.model.fromUser.username}: ${message.model.text}`)
       } catch(e) {console.log(e)}
 
     } else if (message.operation == "update" && message.model.fromUser.username != 'Dletta') {
       //post a message that indicates an update
       try{
         //console.log('sending',message.model.fromUser.username )
-        _channel.send(`[GITTER] -- ${message.model.fromUser.username} -Update- ${message.model.text}`)
+        _channel.send(`gitter~${message.model.fromUser.username}/corr: ${message.model.text}`)
       } catch(e) {console.log(e)}
     }
   });
@@ -79,7 +79,7 @@ client.on('message', message => {
     //console.log(message.author.username);
     if(message.author.username != 'gunDiscordionBridge'){
       //console.log('sending', message.author.username )
-      _room.send(`[DISCORD] -- ${message.author.username} -- ${message.content}`);
+      _room.send(`discord~${message.author.username}: ${message.content}`);
     }
 
     // If the message is "ping"
