@@ -58,7 +58,7 @@ gitter.rooms.join('amark/gun')
       //post initial message
       try{
         //console.log('sending',message.model.fromUser.username )
-        sendDiscord.send(`[G] ${message.model.fromUser.username}: ${message.model.text}`);
+        _channel.send(`[G] ${message.model.fromUser.username}: ${message.model.text}`);
 
       } catch(e) {console.log(e)}
 
@@ -66,7 +66,7 @@ gitter.rooms.join('amark/gun')
       //post a message that indicates an update
       try{
         //console.log('sending',message.model.fromUser.username )
-        sendDiscord.send(`[G] ${message.model.fromUser.username}/corr: ${message.model.text}`)
+        _channel.send(`[G] ${message.model.fromUser.username}/corr: ${message.model.text}`)
       } catch(e) {console.log(e)}
     }
   });
@@ -101,7 +101,7 @@ client.on('message', message => {
       var now = new Date(Date.now());
       now = now.toISOString();
       chatDiscord.get(now).put(message);
-      sendGitter.send(`[D] ${message.author.username}: ${message.content}`);
+      _room.send(`[D] ${message.author.username}: ${message.content}`);
     }
 
     // If the message is "ping"
