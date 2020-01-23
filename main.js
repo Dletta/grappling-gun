@@ -50,7 +50,7 @@ gitter.rooms.join('amark/gun')
     if(message.operation == "create" && message.model.fromUser.username != 'gunchatbridge'){
       var now = new Date(Date.now());
       now = now.toISOString();
-      chatGitter.get(now).put(({[message.mode.fromUser.username]:message.model.text}));
+      chatGitter.get(now).put(({[message.model.fromUser.username]:message.model.text}));
       //post initial message
       try{
         //console.log('sending',message.model.fromUser.username )
