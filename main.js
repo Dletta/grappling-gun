@@ -21,6 +21,9 @@ var discordToken = process.env.DISCORD_TOKEN || process.argv[3];
 
 console.log('started the bridge.')
 
+var _room;
+var _channel;
+
 var sendGitter;
 var sendDiscord;
 
@@ -37,7 +40,7 @@ console.log(gitter.client);
 gitter.rooms.join('amark/gun')
 .then(function(room) {
   console.log('Joined room: ', room.name);
-
+  _room = room;
   // fetch an observer for the global room
   var events = _room.streaming().chatMessages();
 
@@ -89,7 +92,7 @@ client.on('ready', () => {
 
 // Create an event listener for messages
 client.on('message', message => {
-
+  _channel = message.channel;
   console.log('channel', message.channel);
   if(message.channel.id == "612645357850984473"){
     //console.log(message.author.username);
