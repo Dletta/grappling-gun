@@ -4,7 +4,7 @@ var server = require('http').createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.write('This is the discord bridge');
   res.end();
-}).listen(process.env.PORT || 8765);
+}).listen(process.env.PORT || 8080);
 var Gitter = require('node-gitter');
 var Discord = require('discord.js');
 var Gun = require('gun');
