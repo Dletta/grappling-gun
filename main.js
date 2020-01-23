@@ -4,19 +4,28 @@ var server = require('http').createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.write('This is the discord bridge');
   res.end();
-}).listen(process.env.PORT || 80);
+}).listen(process.env.PORT || 8765);
 var Gitter = require('node-gitter');
 var Discord = require('discord.js');
+var Gun = require('gun');
+
+var peers = ['http://guntest.herokuapp.com/gun']
+var gun = Gun({peers:peers, radisk:false, localStorage:false})
+
+gun.get('grappling-gun').get('version').once((node, key)=>console.log(key, node));
 
 /* GLOBALS */
-
-var _room;
-var _channel;
 
 var gitterToken = process.env.GITTER_TOKEN || process.argv[2];
 var discordToken = process.env.DISCORD_TOKEN || process.argv[3];
 
-console.log('started')
+console.log('started the bridge.')
+
+var sendGitter;
+var sendDiscord;
+
+var chatGitter = gun.get('grappling-gun').get('chat').get('gitter');
+var chatDiscord = gun.get('grappling-gun').get('chat').get('discord');
 
 /* ---- GITTER ----- */
 /* Log into gitter */
@@ -28,26 +37,33 @@ console.log(gitter.client);
 gitter.rooms.join('amark/gun')
 .then(function(room) {
   console.log('Joined room: ', room.name);
-  // get the room into global for use in discord
-  _room = room;
+
   // fetch an observer for the global room
   var events = _room.streaming().chatMessages();
+
+  sendGitter = function (msg, key) {
+    room.send(msg);
+  };
 
   // The 'chatMessages' event is emitted on each new message
   events.on('chatMessages', function(message) {
     //console.log(message.model.fromUser);
-    if(message.operation == "create" && message.model.fromUser.username != 'Dletta'){
+    if(message.operation == "create" && message.model.fromUser.username != 'gunchatbridge'){
+      var now = new Date(Date.now());
+      now = now.toISOString();
+      chatGitter.get(now).put(message);
       //post initial message
       try{
         //console.log('sending',message.model.fromUser.username )
-        _channel.send(`[G]${message.model.fromUser.username}: ${message.model.text}`)
+        sendDiscord.send(`[G] ${message.model.fromUser.username}: ${message.model.text}`);
+
       } catch(e) {console.log(e)}
 
-    } else if (message.operation == "update" && message.model.fromUser.username != 'Dletta') {
+    } else if (message.operation == "update" && message.model.fromUser.username != 'gunchatbridge') {
       //post a message that indicates an update
       try{
         //console.log('sending',message.model.fromUser.username )
-        _channel.send(`[G]${message.model.fromUser.username}/corr: ${message.model.text}`)
+        sendDiscord.send(`[G] ${message.model.fromUser.username}/corr: ${message.model.text}`)
       } catch(e) {console.log(e)}
     }
   });
@@ -79,7 +95,10 @@ client.on('message', message => {
     //console.log(message.author.username);
     if(message.author.username != 'gunDiscordionBridge'){
       //console.log('sending', message.author.username )
-      _room.send(`[D]${message.author.username}: ${message.content}`);
+      var now = new Date(Date.now());
+      now = now.toISOString();
+      chatDiscord.get(now).put(message);
+      sendGitter.send(`[D] ${message.author.username}: ${message.content}`);
     }
 
     // If the message is "ping"
@@ -88,8 +107,9 @@ client.on('message', message => {
       message.channel.send('pong');
     }
 
-    _channel = message.channel;
-  }
+    sendDiscord = function (msg, key) {
+      message.channel.send(msg);
+    }
 });
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
