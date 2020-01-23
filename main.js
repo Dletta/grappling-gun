@@ -44,17 +44,13 @@ gitter.rooms.join('amark/gun')
   // fetch an observer for the global room
   var events = _room.streaming().chatMessages();
 
-  sendGitter = function (msg, key) {
-    room.send(msg);
-  };
-
   // The 'chatMessages' event is emitted on each new message
   events.on('chatMessages', function(message) {
     //console.log(message.model.fromUser);
     if(message.operation == "create" && message.model.fromUser.username != 'gunchatbridge'){
       var now = new Date(Date.now());
       now = now.toISOString();
-      chatGitter.get(now).put(message.model);
+      chatGitter.get(now).put(JSON.stringify(message.model));
       //post initial message
       try{
         //console.log('sending',message.model.fromUser.username )
@@ -100,7 +96,7 @@ client.on('message', message => {
       //console.log('sending', message.author.username )
       var now = new Date(Date.now());
       now = now.toISOString();
-      chatDiscord.get(now).put(message);
+      chatDiscord.get(now).put(JSON.stringify(message));
       _room.send(`[D] ${message.author.username}: ${message.content}`);
     }
 
