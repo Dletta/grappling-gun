@@ -110,7 +110,8 @@ client.on('message', message => {
     sendDiscord = function (msg, key) {
       message.channel.send(msg);
     }
-});
+  }
+})
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
 client.login(discordToken);
