@@ -9,7 +9,7 @@ var Gitter = require('node-gitter');
 var Discord = require('discord.js');
 var Gun = require('gun');
 
-var peers = ["https://dletta.rig.airfaas.com/gun"]
+var peers = ["https://localhost:8765"]
 var gun = Gun({peers:peers, radisk:false, localStorage:false})
 
 gun.get('grappling-gun').get('version').once((node, key)=>console.log(key, node));
