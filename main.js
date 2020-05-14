@@ -88,9 +88,10 @@ client.on('ready', () => {
 
 // Create an event listener for messages
 client.on('message', message => {
-  _channel = message.channel;
+
   console.log('channel', message.channel);
   if(message.channel.id == "612645357850984473"){
+    _channel = message.channel;
     //console.log(message.author.username);
     if(message.author.username != 'gunDiscordionBridge'){
       //console.log('sending', message.author.username )
