@@ -1,0 +1,27 @@
+{
+    "authors": "Stepan Miroshin <https://github.com/microshine>",
+    "definitionFilename": "index.d.ts",
+    "libraryDependencies": [],
+    "moduleDependencies": [
+        "pvutils"
+    ],
+    "libraryMajorVersion": "0",
+    "libraryMinorVersion": "0",
+    "libraryName": "asn1js",
+    "typingsPackageName": "asn1js",
+    "projectName": "https://github.com/PeculiarVentures/ASN1.js",
+    "sourceRepoURL": "https://www.github.com/DefinitelyTyped/DefinitelyTyped",
+    "sourceBranch": "types-2.0",
+    "kind": "ProperModule",
+    "globals": [
+        "Asn1js"
+    ],
+    "declaredModules": [
+        "asn1js"
+    ],
+    "files": [
+        "index.d.ts"
+    ],
+    "hasPackageJson": false,
+    "contentHash": "d41e2db4ab9635a2c92b9d2a3ea2888c30db98587c541f67771b7130ffed22e6"
+}

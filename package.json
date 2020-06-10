@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/Dletta/grappling-gun#readme",
   "dependencies": {
-    "discord.js": "^11.5.1",
-    "gun": "^0.2020.116",
+    "discord.js": "^11.6.4",
+    "gun": "^0.2020.520",
     "node-gitter": "^2.1.0"
   }
 }

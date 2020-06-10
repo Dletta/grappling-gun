@@ -1,0 +1,5 @@
+import { IEmptyConstructor } from "./types";
+export declare class AsnConvert {
+    static serialize(obj: any): ArrayBuffer;
+    static parse<T>(data: BufferSource, target: IEmptyConstructor<T>): T;
+}
