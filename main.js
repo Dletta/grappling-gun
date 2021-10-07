@@ -36,14 +36,14 @@ gitter.rooms.join('amark/gun')
   // The 'chatMessages' event is emitted on each new message
   events.on('chatMessages', function(message) {
     //console.log(message.model.fromUser);
-    if(message.operation == "create" && message.model.fromUser.username != 'Dletta'){
+    if(message.operation == "create" && message.model.fromUser.username != 'gunchatbridge'){
       //post initial message
       try{
         //console.log('sending',message.model.fromUser.username )
         _channel.send(`[G]${message.model.fromUser.username}: ${message.model.text}`)
       } catch(e) {console.log(e)}
 
-    } else if (message.operation == "update" && message.model.fromUser.username != 'Dletta') {
+    } else if (message.operation == "update" && message.model.fromUser.username != 'gunchatbridge') {
       //post a message that indicates an update
       try{
         //console.log('sending',message.model.fromUser.username )
@@ -86,6 +86,11 @@ client.on('message', message => {
     if (message.content === 'ping') {
       // Send "pong" to the same channel
       message.channel.send('pong');
+    }
+
+    if (message.content === 'whois') {
+      // Send "pong" to the same channel
+      message.channel.send('I am the bridge to the future, gitter <-> discord bridge, powered by (>|<)');
     }
 
     _channel = message.channel;
